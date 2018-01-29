@@ -63,7 +63,8 @@ public class WeatherRule extends BaseJSPRule {
 		
 		//Call longitude lattitude API
 		
-		String ipAddress = httpServletRequest.getRemoteAddr();
+		String ipAddress = httpServletRequest.getRemoteAddr();		
+
 		Client client = Client.create();
 	    WebResource webResource = client.resource("https://ipapi.co/92.234.68.98/json");
 	    ClientResponse response = webResource.get(ClientResponse.class);   
@@ -94,7 +95,7 @@ public class WeatherRule extends BaseJSPRule {
 	    			actualWeather="sunny";
 	    		}
 	    		else
-	    			if (weatherCode == 803 || weatherCode == 804) {
+	    			if (weatherCode == 802 || weatherCode == 803|| weatherCode == 804) {
 	    				actualWeather="cloudy";
 	    			}
 	    			else
@@ -107,8 +108,13 @@ public class WeatherRule extends BaseJSPRule {
 	    					}
 	    						
 	    System.out.println("The weather is " + actualWeather);
+	    System.out.println("The weather rule state is " + ruleWeather);
+	    
+	    boolean checkWeather = ruleWeather.equals(actualWeather);
+	    System.out.println("The rule should return " + checkWeather);
 	    					
-		return ruleWeather.equals("actualWeather");
+		return ruleWeather.equals(actualWeather);
+		
 	}
 
 	@Override
